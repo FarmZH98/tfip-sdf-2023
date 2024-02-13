@@ -1,10 +1,7 @@
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -13,7 +10,7 @@ public class App {
     public static void main(String[] args) throws Exception {
         System.out.println("Welcome to task02.");
 
-        //read all files, and put into List<String> as we are reading, process the data and store them in hashmap<first,hashmap<2nd,count>>
+        //read all files, and put into List<String> as we are reading, 
         File directory = new File(args[0]); 
         List<String> textList = new LinkedList<>();
         for (File f: directory.listFiles()) {
@@ -33,7 +30,7 @@ public class App {
         }
         
         //System.out.println(textList.toString());
-
+        //process the data and store them in hashmap<first,hashmap<2nd,count>>
         HashMap<String, SecondWordCount> firstWordToHashMap = new HashMap<>();
         for(int i=0; i<textList.size(); ++i) {
             String[] temp = textList.get(i).split(" ");
@@ -44,12 +41,6 @@ public class App {
                 String secondWord = temp[j+1];
                 if(firstWordToHashMap.containsKey(firstWord)) { //check if firstWord exists in HashMap, then check secondWord if exist in class
                     firstWordToHashMap.get(firstWord).addWord(secondWord);
-                    // HashMap<String, Integer> secondWordHash =  SecondWordCount.getMap();//check for 2nd word
-                    // if(secondWordHash.containsKey(secondWord)) {
-                    //     secondWordHash.put(secondWord, secondWordHash.get(secondWord) + 1);
-                    // } else {
-                    //     secondWordHash.put(secondWord, 1);
-                    // }
                     continue;
                 } 
                 HashMap<String, Integer> secondWordHash = new HashMap<>();
@@ -59,7 +50,7 @@ public class App {
             }
         }
         
-        
+        //calculate probability and print out
         for(Map.Entry<String, SecondWordCount> set: firstWordToHashMap.entrySet()) {
             //System.out.println(set.getValue().toString());
             String firstWord = set.getKey();
